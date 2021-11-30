@@ -5,7 +5,6 @@ import { Login, Register } from "../pages/authentication";
 import { LandingPage, People } from "../pages/view";
 
 const Routing = () => {
-  console.log("localStorage.getItem", localStorage.getItem("token"));
   return (
     <>
       <Router>

@@ -67,7 +67,6 @@ export const getAllEmployees = () => async (dispatch) => {
     dispatch({ type: "LOADING_STARTED" });
     const res = await Api.get(ENDPOINTS.GET_EMPLOYESS);
 
-    console.log("res", res.data.data);
     dispatch({
       type: ACTION_TYPE.GETALL,
       payload: res.data,
@@ -87,7 +86,6 @@ export const getEmployee = (email) => async (dispatch) => {
     dispatch({ type: "LOADING_STARTED" });
     const res = await Api.get(ENDPOINTS.GET_EMPLOYEE);
 
-    console.log("res", res.data.data);
     dispatch({
       type: ACTION_TYPE.GETALL,
       payload: res.data,

@@ -22,8 +22,6 @@ const FormDialog = (props) => {
     city: "",
   });
 
-  console.log("props.employee", props.employee);
-
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
