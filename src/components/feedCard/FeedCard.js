@@ -19,15 +19,6 @@ const MePostCardView = ({ setOpen, setEmployee }) => {
 
   useEffect(() => {
     (async () => {
-      if (userData?._id) {
-        const userId = userData?._id;
-        const response = await dispatch(PostAction.getStatus(userId));
-      }
-    })();
-  }, [userData]);
-
-  useEffect(() => {
-    (async () => {
       const response = await dispatch(PostAction.getAllEmployees());
     })();
   }, []);
