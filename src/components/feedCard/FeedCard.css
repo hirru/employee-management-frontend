@@ -86,7 +86,7 @@
 
 .update_list {
   list-style: none;
-  width: 60%;
+  width: 50%;
   margin: 15px auto;
 }
 
@@ -187,7 +187,8 @@
 }
 
 .caption {
-  padding: 0px 15px 5px;
+  /* padding: 0px 15px 5px; */
+  padding-top: 15px;
   margin-left: 3.5em;
 }
 .alert-wrapper.sc-ion-alert-md {

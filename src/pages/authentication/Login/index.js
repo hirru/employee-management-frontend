@@ -28,6 +28,7 @@ const Login = (props) => {
       [e.target.name]: e.target.value,
     });
   };
+
   async function onSubmit(event) {
     event.preventDefault();
     const result = await ValidateLoginForm(state);

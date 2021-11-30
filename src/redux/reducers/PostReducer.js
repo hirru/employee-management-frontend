@@ -6,11 +6,18 @@ export const initialState = {
 };
 export const PostReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTION_TYPE.POST_LIST:
+    case ACTION_TYPE.GETALL:
       return {
         ...state,
-        post: action.payload.data.data,
+        post: action.payload.data,
       };
+
+    case ACTION_TYPE.ADD:
+      return {
+        ...state,
+        post: action.payload.data,
+      };
+
     case ACTION_TYPE.PEOPLE_LIST:
       return {
         ...state,

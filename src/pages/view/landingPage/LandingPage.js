@@ -4,14 +4,21 @@ import "./LandingPage.css";
 import FeedCard from "../../../components/feedCard/FeedCard";
 import Button from "../../../components/button/Button";
 import Modal from "../../../components/modal/Modal";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, Redirect, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AuthAction } from "../../../redux/actions/Index";
 import { ROUTES } from "../../../services/constants/Index";
 function LandingPage() {
   const [open, setOpen] = useState(false);
+  const [employee, setEmployee] = useState();
+
   const dispatch = useDispatch();
   const history = useHistory();
+
+  if (localStorage.getItem("token") === null) {
+    return <Redirect to={ROUTES.LOGIN} />;
+  }
+
   return (
     <div>
       <Navbar bg="blue" className="navBarMain" expand="lg">
@@ -21,29 +28,9 @@ function LandingPage() {
               pathname: "/home",
             }}
           >
-            TwitterClone
+            Employee Management
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto ml-3">
-              <NavLink
-                to={{
-                  pathname: "/home",
-                }}
-                className="mr-3"
-              >
-                Feed
-              </NavLink>
-              <NavLink
-                to={{
-                  pathname: "/people",
-                }}
-              >
-                People
-              </NavLink>
-              {/* <NavLink href="#link">Feed</NavLink> */}
-            </Nav>
-          </Navbar.Collapse>
           <Button
             background="secondary"
             color="secondary"
@@ -60,7 +47,7 @@ function LandingPage() {
           <Button
             background="primary"
             color="tertiary"
-            name="New Status"
+            name="Add Employee"
             handleClick={() => {
               setOpen(!open);
             }}
@@ -70,9 +57,11 @@ function LandingPage() {
           open={open}
           handleClose={() => {
             setOpen(false);
+            setEmployee();
           }}
+          employee={employee}
         />
-        <FeedCard />
+        <FeedCard setOpen={setOpen} setEmployee={setEmployee} />
       </div>
     </div>
   );

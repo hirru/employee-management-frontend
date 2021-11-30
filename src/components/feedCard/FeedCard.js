@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import "./FeedCard.css";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ModeCommentOutlinedIcon from "@material-ui/icons/ModeCommentOutlined";
-import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
-import { PostAction } from "../../redux/actions/Index";
-const MePostCardView = (props) => {
+import { PostAction, AuthAction } from "../../redux/actions/Index";
+import { Edit } from "@material-ui/icons";
+const MePostCardView = ({ setOpen, setEmployee }) => {
   const dispatch = useDispatch();
   const [deletePopup, setDeletePopup] = useState(false);
   const [postId, setPostId] = useState();
@@ -25,6 +25,21 @@ const MePostCardView = (props) => {
       }
     })();
   }, [userData]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await dispatch(PostAction.getAllEmployees());
+    })();
+  }, []);
+
+  const handleDelete = (email) => {
+    const delUser = dispatch(PostAction.deleteEmployee({ email: email }));
+  };
+
+  const handleUpdate = (data) => {
+    setOpen(true);
+    setEmployee(data);
+  };
 
   return (
     <section>
@@ -44,33 +59,40 @@ const MePostCardView = (props) => {
                     ></img>
                     <div className="share-update-card__actor-info">
                       <h3 className="share-update-card__actor-text">
-                        {data.userId.firstName}
+                        {data.email}
                       </h3>
                     </div>
+                    <div className="caption">
+                      <p>
+                        {data.firstName} {data.lastName}
+                      </p>
+                    </div>
+                    <div className="caption">
+                      <p>{data.mobile}</p>
+                    </div>
                   </div>
-                  <div className="trashCan">
-                    {/* <DeleteOutlineOutlinedIcon /> */}
-                  </div>
-                  <div className="caption">
-                    <p>{data.status}</p>
-                  </div>
+
                   <div className="imgSocial">
                     <div className="social-action-bar">
-                      <button className="social-action-bar__button">
-                        <FavoriteIcon color="red" />
-                        Likes
+                      <button
+                        className="social-action-bar__button"
+                        onClick={() => handleDelete(data.email)}
+                      >
+                        <DeleteOutlineOutlinedIcon color="red" />
+                        DELETE
                       </button>
 
                       {/* <div class="line"></div> */}
-                      <button className="social-action-bar__button">
-                        <ModeCommentOutlinedIcon />
-                        <span>Comment</span>{" "}
+                      <button
+                        className="social-action-bar__button"
+                        onClick={() => {
+                          handleUpdate(data);
+                        }}
+                      >
+                        <Edit />
+                        <span>UPDATE</span>{" "}
                       </button>
                       {/* <div class="line"></div> */}
-                      <button className="social-action-bar__button">
-                        <ShareOutlinedIcon />
-                        <span>Share</span>
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -78,7 +100,9 @@ const MePostCardView = (props) => {
             );
           })
         }
-        {post.length == 0 && <h1 className="text-center">No post to show</h1>}
+        {post.length == 0 && (
+          <h1 className="text-center">No employee to show</h1>
+        )}
       </ul>
     </section>
   );

@@ -33,10 +33,11 @@ export const signUp = (body) => async (dispatch) => {
     // dispatch(handleError(err));
   }
 };
+
 export const logOut = () => async (dispatch) => {
   try {
     dispatch({ type: "LOADING_STARTED" });
-    sessionStorage.clear();
+    localStorage.clear();
     dispatch({
       type: ACTION_TYPE.LOGOUT_USER,
     });
